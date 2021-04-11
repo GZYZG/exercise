@@ -16,6 +16,7 @@ import time
 import datetime
 import re
 import random
+import sys
 
 
 class XiaomiSport:
@@ -157,8 +158,8 @@ if __name__ == "__main__":
     while fail_num > 0:
         try:
             # 执行一键修改步数
-            user = '18296614015'
-            pw = 'gzyatxiaomi2021'
+            user = sys.argv[1]
+            pw = sys.argv[2]
             a = random.randint(0, 3)
             b = random.randint(0, 8)
             c = random.randint(0, 7)
