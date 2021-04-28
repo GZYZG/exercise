@@ -164,7 +164,7 @@ if __name__ == "__main__":
             b = random.randint(0, 8)
             c = random.randint(0, 7)
             d = random.randint(0, 9)
-            stepnum = 44444  # 2 * 10000 + a *1000 + b *100 + c * 10 + d *1
+            stepnum = 55555  # 2 * 10000 + a *1000 + b *100 + c * 10 + d *1
             XiaomiSport(user, pw, stepnum).one_click_change_step()
             break
         except Exception as e:
