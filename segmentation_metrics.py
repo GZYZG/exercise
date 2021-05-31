@@ -20,21 +20,21 @@ def confusion_matrix(label, predict, n):
     return np.bincount(n * label[k].astype(int) + predict[k], minlength=n ** 2).reshape(n, n)
 
 
-def mIoU(label, predict, class_n):
+def IoU(label, predict, class_n):
     """
-    计算mIoU，mean Intersection over Union
+    计算各类的IoU， Intersection over Union
     $IoU = TP / (TP + FP + TN)$
     $mIoU = \frac{1}{C} \sum_{i = 1}^{C} IoU_i$
     :param label: 标签
     :param predict: 预测值
     :param class_n: 类别数
-    :return: mIoU
+    :return: 各个类别的IoU
     """
     cm = confusion_matrix(label, predict, class_n)
 
     miou = np.diag(cm) / (cm.sum(axis=1) + cm.sum(axis=1) - np.diag(cm))
 
-    miou = np.nanmean(miou)
+    # miou = np.nanmean(miou)
 
     return miou
 
@@ -46,7 +46,7 @@ def plot_confusion_matrix(cm, classes, normalized=False, title="Confusion matrix
     :param classes: 类别列表。classes[i] 表示 i 所对应的类名
     :param normalized: 是否进行归一化
     :param title: str，表头
-    :param cmap:
+    :param cmap: 配色方案
     :return:
     """
     if normalized:
@@ -77,10 +77,10 @@ def plot_confusion_matrix(cm, classes, normalized=False, title="Confusion matrix
 
 
 if __name__ == "__main__":
-    label = np.array([0, 0, 1, 1])  # np.array([[0, 1, 1], [1, 1, 0], [0, 0, 1]])
+    label = np.array([2, 0, 1, 1])  # np.array([[0, 1, 1], [1, 1, 0], [0, 0, 1]])
     predict = np.array([0, 0, 1, 1])  # np.array([[0, 1, 0], [1, 0, 1], [0, 0, 0]])
-    cm = confusion_matrix(label, predict, 2)
-    plot_confusion_matrix(cm, [0,1], title="Confusion Matrix")
+    cm = confusion_matrix(label, predict, 3)
+    plot_confusion_matrix(cm, [0, 1, 2], title="Confusion Matrix")
     print(f"Confusion Matrix: \n{cm}")
 
-    print(f"mIoU: {mIoU(label, predict, 2)}")
+    print(f"mIoU: {IoU(label, predict, 3)}")
