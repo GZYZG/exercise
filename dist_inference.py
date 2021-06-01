@@ -75,6 +75,16 @@ def cal_norm(adj):
     return norm
 
 
+def gen_subgraph(vertexs, adj, order=2):
+    vs = set(vertexs)
+    for i in range(order):
+        tmp = adj[vs, :]
+        tmp = tmp.reshape(-1)
+        vs = vs.union(set(tmp))
+
+    return list(vs)
+
+
 if __name__ == "__main__":
     config = OrderedDict()
     config['num_layers'] = 2
@@ -101,3 +111,13 @@ if __name__ == "__main__":
     test_idx = random.sample(range(n), test_n)
 
     sc = SparkSession.builder.appName("GCNInferenceWithSpark").getOrCreate()
+
+    # 为每个测试结点，生成基于该顶点的子树。每个测试结点的计算作为一个task
+    gcn = GCN(config)
+    gcn.load_weights(None)
+    subgraphs = [gen_subgraph(idx, adj, order=2) for idx in test_idx]
+    subgraphs = [[feat[idx] for idx in sub] for sub in subgraphs]
+    subgraphs = sc.paralize(subgraphs)
+    subgraphs.map(lambda x: gcn.forward(x))
+
+    test_embs = [subgraphs[idx][0] for idx in test_idx]

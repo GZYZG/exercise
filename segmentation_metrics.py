@@ -76,6 +76,24 @@ def plot_confusion_matrix(cm, classes, normalized=False, title="Confusion matrix
     plt.show()
 
 
+def dice_coefficient(pred, target, smooth=1):
+    """
+    计算dice系数
+    :param pred: 预测。shape为(batch_size, w, h)
+    :param target: 目标。shape为(batch_size, w, h)
+    :param smooth: 平滑系数，scalar，默认为1
+    :return:
+    """
+    assert pred.shape[0] == target.shape[0]
+    n = pred.shape[0]
+    t1 = pred.reshape(n, -1)
+    t2 = target.reshape(n, -1)
+
+    intersection = (t1 * t2).sum()
+
+    return 2. * intersection / (t1.sum() + t2.sum() + smooth)
+
+
 if __name__ == "__main__":
     label = np.array([2, 0, 1, 1])  # np.array([[0, 1, 1], [1, 1, 0], [0, 0, 1]])
     predict = np.array([0, 0, 1, 1])  # np.array([[0, 1, 0], [1, 0, 1], [0, 0, 0]])
