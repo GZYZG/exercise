@@ -1,0 +1,42 @@
+booster[0]:
+0:[worst radius<16.7950001] yes=1,no=2,missing=1
+	1:[worst concave points<0.135800004] yes=3,no=4,missing=3
+		3:[radius error<0.643100023] yes=7,no=8,missing=7
+			7:leaf=0.582022488
+			8:leaf=0.0666666701
+		4:[worst texture<27.3850002] yes=9,no=10,missing=9
+			9:leaf=0.218181834
+			10:leaf=-0.480000019
+	2:[texture error<0.492299974] yes=5,no=6,missing=5
+		5:leaf=0.163636371
+		6:[worst concavity<0.187150002] yes=11,no=12,missing=11
+			11:leaf=-0
+			12:leaf=-0.583561659
+booster[1]:
+0:[worst perimeter<105.949997] yes=1,no=2,missing=1
+	1:[worst concave points<0.135049999] yes=3,no=4,missing=3
+		3:[area error<46.9000015] yes=7,no=8,missing=7
+			7:leaf=0.455042779
+			8:leaf=0.0392791517
+		4:[worst texture<25.9399986] yes=9,no=10,missing=9
+			9:leaf=0.342906207
+			10:leaf=-0.280801833
+	2:[mean concave points<0.0488649979] yes=5,no=6,missing=5
+		5:[worst radius<17.4799995] yes=11,no=12,missing=11
+			11:leaf=0.323924124
+			12:leaf=-0.237020031
+		6:[worst texture<20.6450005] yes=13,no=14,missing=13
+			13:leaf=-0.047403492
+			14:leaf=-0.457088977
+booster[2]:
+0:[worst radius<16.7950001] yes=1,no=2,missing=1
+	1:[worst concave points<0.176100001] yes=3,no=4,missing=3
+		3:[worst concave points<0.135800004] yes=7,no=8,missing=7
+			7:leaf=0.38169083
+			8:leaf=0.0893720239
+		4:leaf=-0.328477353
+	2:[worst texture<18.4449997] yes=5,no=6,missing=5
+		5:leaf=0.157367826
+		6:[worst concavity<0.216199994] yes=9,no=10,missing=9
+			9:leaf=-0.021499157
+			10:leaf=-0.399322122
