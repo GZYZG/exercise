@@ -137,8 +137,8 @@ def get_dnn_logits(dense_input_dict, sparse_input_dict, sparse_feature_columns, 
 
 # Wide&Deep 模型的wide部分及Deep部分的特征选择，应该根据实际的业务场景去确定哪些特征应该放在Wide部分，哪些特征应该放在Deep部分
 def WideNDeep(linear_feature_columns, dnn_feature_columns):
-    # 构建输入层，即所有特征对应的Input()层，这里使用字典的形式返回，方便后续构建模型。Wide 和 Deep 部分将公用输入层
-    dense_input_dict, sparse_input_dict = build_input_layers(linear_feature_columns + dnn_feature_columns)
+    # 构建输入层，即所有特征对应的Input()层，这里使用字典的形式返回，方便后续构建模型。Wide 和 Deep 部分将公共享输入层
+    dense_input_dict, sparse_input_dict = build_input_layers(linear_feature_columns + dnn_feature_columns)  # name->Input
 
     # 将linear部分的特征中sparse特征筛选出来，后面用来做1维的embedding
     linear_sparse_feature_columns = list(filter(lambda x: isinstance(x, SparseFeat), linear_feature_columns))
