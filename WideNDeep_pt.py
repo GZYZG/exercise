@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data import Dataset, DataLoader
-
+from sklearn.metrics import roc_auc_score
 
 use_cuda = torch.cuda.is_available()
 
@@ -173,8 +173,10 @@ class WideDeep(nn.Module):
         # set the model in training mode
         net = self.train()
         for epoch in range(n_epochs):
-            total=0
-            correct=0
+            total = 0  
+            correct = 0
+            y_proba = []
+            y_true = []
             for i, (X_wide, X_deep, target) in enumerate(train_loader):
                 X_w = Variable(X_wide)
                 X_d = Variable(X_deep)
@@ -188,7 +190,11 @@ class WideDeep(nn.Module):
                 loss = self.criterion(y_pred, y.reshape(-1, 1))
                 loss.backward()
                 self.optimizer.step()
-
+                
+#                 print(target)
+                y_proba.extend(y_pred.cpu().squeeze(1).data.numpy().tolist())
+                y_true.extend(target.cpu().data.numpy().tolist())
+                
                 if self.method != "regression":
                     total+= y.size(0)
                     if self.method == 'logistic':
@@ -197,10 +203,10 @@ class WideDeep(nn.Module):
                         _, y_pred_cat = torch.max(y_pred, 1)
 #                     print(y_pred_cat, y)
                     correct+= float((y_pred_cat == y).sum().data)
-#             print(loss.data)
+            
             if self.method != "regression":
-                print ('Epoch {} of {}, Loss: {}, accuracy: {}'.format(epoch+1,
-                    n_epochs, round(float(loss.data), 3), round(correct/total, 4)))
+                print ('Epoch {} of {}, Loss: {}, accuracy: {}, auc: {}'.format(epoch+1,
+                    n_epochs, round(float(loss.data), 3), round(correct/total, 4), roc_auc_score(y_true, y_proba)))
             else:
                 print ('Epoch {} of {}, Loss: {}'.format(epoch+1, n_epochs,
                     round(float(loss.data), 3)))
