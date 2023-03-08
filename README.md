@@ -7,7 +7,7 @@
 - [segmentation_metrics.py](./segmentation_metrics.py)，只实现了 dice 系数和 IoU 的计算；
 - [overlap.py](./overlap.py)：给定两个矩阵的左上、右下坐标，计算他们的重叠面积；
 - [ml-examples](./ml-examples) 关于一些机器学习模型的例子
-	- [CREDIT CARD FRAUD DETECTION.ipynb](./ml-examples/CREDIT CARD FRAUD DETECTION.ipynb)：信用卡欺诈检测，二分类任务
+	- [Credit-card-fraud-detection.ipynb](./ml-examples/Credit-card-fraud-detection.ipynb)：信用卡欺诈检测，二分类任务
 	- [dgl_link_predict.ipynb](./ml-examples/dgl_link_predict.ipynb)：使用 `dgl` 进行图上的链接预测任务
 	- [FM.ipynb](./ml-examples/FM.ipynb)：FactorizationMachines 的实现；
 	- [SparkML预测实战.ipynb](./ml-examples/SparkML预测实战.ipynb)：使用 SparkML 模块做机器学习任务；
